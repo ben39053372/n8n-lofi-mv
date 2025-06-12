@@ -4,7 +4,7 @@ import { bundle } from "@remotion/bundler";
 import path from "node:path";
 import { ensureBrowser } from "@remotion/renderer";
 
-const { PORT = 3000, REMOTION_SERVE_URL } = process.env;
+const { PORT = 3001, REMOTION_SERVE_URL } = process.env;
 
 function setupApp({ remotionBundleUrl }: { remotionBundleUrl: string }) {
   const app = express();
