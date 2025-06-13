@@ -8,6 +8,7 @@ import path from "node:path";
 
 interface JobData {
   titleText: string;
+  props: object;
 }
 
 type JobState =
@@ -65,7 +66,10 @@ export const makeRenderQueue = ({
     try {
       const inputProps = {
         titleText: job.data.titleText,
+        ...job.data.props,
       };
+
+      console.log({ inputProps });
 
       const composition = await selectComposition({
         serveUrl,

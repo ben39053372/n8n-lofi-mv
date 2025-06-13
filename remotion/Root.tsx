@@ -19,8 +19,7 @@ export const RemotionRoot: React.FC = () => {
         schema={PropsSchema}
         defaultProps={{
           audioUrls: [],
-          thumbnail:
-            "https://i.ytimg.com/an_webp/Xk7aITVaICQ/mqdefault_6s.webp?du=3000&sqp=CIClpMIG&rs=AOn4CLA-l6aJo9bKIvWdqTldHogm9HJc5Q",
+          thumbnail: "https://placehold.co/600x400",
           audioList: [],
         }}
         // You can override these props for each render:
@@ -35,15 +34,18 @@ export const RemotionRoot: React.FC = () => {
               };
             }),
           );
+          console.log({ data });
           return {
             props: {
               ...props,
               audioList: data,
             },
-            durationInFrames: Math.round(
-              data.map((d) => d.duration).reduce((acc, curr) => acc + curr, 0) *
-                fps,
-            ),
+            durationInFrames:
+              Math.round(
+                data
+                  .map((d) => d.duration)
+                  .reduce((acc, curr) => acc + curr, 0) * fps,
+              ) || 1,
           };
         }}
       />
