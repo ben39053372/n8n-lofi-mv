@@ -1,4 +1,4 @@
-import { Composition } from "remotion";
+import { Composition, continueRender, delayRender } from "remotion";
 import { HelloWorld, PropsSchema } from "./HelloWorld";
 import { getAudioDurationInSeconds } from "@remotion/media-utils";
 
@@ -25,15 +25,23 @@ export const RemotionRoot: React.FC = () => {
         // You can override these props for each render:
         // https://www.remotion.dev/docs/parametrized-rendering
         calculateMetadata={async ({ props }) => {
+          const mainHandler = delayRender("calculateMetadata", {
+            timeoutInMilliseconds: 100000,
+          });
           const data = await Promise.all(
             props.audioUrls.map(async (url) => {
+              const handle = delayRender(url, {
+                timeoutInMilliseconds: 100000,
+              });
               const duration = await getAudioDurationInSeconds(url);
+              continueRender(handle);
               return {
                 src: url,
                 duration,
               };
             }),
           );
+          continueRender(mainHandler);
           console.log({ data });
           return {
             props: {
