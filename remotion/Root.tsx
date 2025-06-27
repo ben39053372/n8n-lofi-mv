@@ -1,6 +1,6 @@
 import { Composition, continueRender, delayRender } from "remotion";
 import { HelloWorld, PropsSchema } from "./HelloWorld";
-import { getAudioDurationInSeconds } from "@remotion/media-utils";
+import { getAudioData } from "@remotion/media-utils";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -33,11 +33,13 @@ export const RemotionRoot: React.FC = () => {
               const handle = delayRender(url, {
                 timeoutInMilliseconds: 100000,
               });
-              const duration = await getAudioDurationInSeconds(url);
+              const audioData = await getAudioData(url);
+              // const duration = await getAudioDurationInSeconds(url);
               continueRender(handle);
               return {
                 src: url,
-                duration,
+                duration: audioData.durationInSeconds,
+                // audioData: JSON.stringify(audioData),
               };
             }),
           );
