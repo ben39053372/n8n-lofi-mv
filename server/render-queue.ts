@@ -83,6 +83,7 @@ export const makeRenderQueue = ({
         composition,
         inputProps,
         codec: "h264",
+        timeoutInMilliseconds: 100000,
         onProgress: (progress) => {
           console.info(`${jobId} render progress:`, progress.progress);
           jobs.set(jobId, {
